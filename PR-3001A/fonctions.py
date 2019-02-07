@@ -1,4 +1,5 @@
 import numpy as np
+import random as r
 
 def EvalPosition(N, P, A):
 	'''
@@ -23,7 +24,7 @@ def EvalPosition(N, P, A):
 	FORME DE P :
 		+1 si pion du joueur 1
 		0  si aucun pion
-		-1 si pion du joueur 2
+
 
 	Joueur 		= 	joueur 1 	(+1)
 	Ordinateur 	= 	joueur 2	(-1)
@@ -40,8 +41,10 @@ def EvalPosition(N, P, A):
 
 	M[0][0] = [0, 0, 0, 0]
 	pas = 1000/A
-	max_value = 0
-	coord_max = [[0, 0]]
+	max_value_joueur = 0
+	max_value_ordi = 0
+	coord_max_joueur = [[0, 0]]
+	coord_max_ordi = [[0, 0]]
 	for i in range(N):
 		for j in range(N):
 			if P[i][j] != 0:
@@ -50,56 +53,110 @@ def EvalPosition(N, P, A):
 						#test
 						if P[i][j] == P[i-1][j-1]:
 							valeur = M[i-1][j-1][0] + 1
-							if valeur == max_value:
-								coord_max.append([i, j])
-							elif valeur > max_value:
-								max_value = valeur
-								coord_max = [[i, j]]
+							if P[i][j] == 1:	
+								if valeur == max_value_joueur:
+									coord_max_joueur.append([i, j])
+								elif valeur > max_value_joueur:
+									max_value_joueur = valeur
+									coord_max_joueur = [[i, j]]
+							elif P[i][j] == -1:
+								if valeur == max_value_ordi:
+									coord_max_ordi.append([i, j])
+								elif valeur > max_value_ordi:
+									max_value_ordi = valeur
+									coord_max_ordi = [[i, j]]
 							M[i][j][0] = valeur
 					#test
 					if P[i][j] == P[i-1][j]:
 						valeur = M[i-1][j][1] + 1
-						if valeur == max_value:
-							coord_max.append([i, j])
-						elif valeur > max_value:
-							max_value = valeur
-							coord_max = [[i, j]]
+						if P[i][j] == 1:	
+							if valeur == max_value_joueur:
+								coord_max_joueur.append([i, j])
+							elif valeur > max_value_joueur:
+								max_value_joueur = valeur
+								coord_max_joueur = [[i, j]]
+						elif P[i][j] == -1:
+							if valeur == max_value_ordi:
+								coord_max_ordi.append([i, j])
+							elif valeur > max_value_ordi:
+								max_value_ordi = valeur
+								coord_max_ordi = [[i, j]]
 						M[i][j][1] = valeur
 					if j+1 <= N-1:
 						#test
 						if P[i][j] == P[i-1][j+1]:
 							valeur = M[i-1][j+1][2] + 1
-							if valeur == max_value:
-								coord_max.append([i, j])
-							elif valeur > max_value:
-								max_value = valeur
-								coord_max = [[i, j]]
+							if P[i][j] == 1:	
+								if valeur == max_value_joueur:
+									coord_max_joueur.append([i, j])
+								elif valeur > max_value_joueur:
+									max_value_joueur = valeur
+									coord_max_joueur = [[i, j]]
+							elif P[i][j] == -1:
+								if valeur == max_value_ordi:
+									coord_max_ordi.append([i, j])
+								elif valeur > max_value_ordi:
+									max_value_ordi = valeur
+									coord_max_ordi = [[i, j]]
 							M[i][j][2] = valeur
 				if j-1 >= 0:
 					#test
 					if P[i][j] == P[i][j-1]:
 						valeur = M[i][j-1][3] + 1
-						if valeur == max_value:
-							coord_max.append([i, j])
-						elif valeur > max_value:
-							max_value = valeur
-							coord_max = [[i, j]]
+						if P[i][j] == 1:	
+							if valeur == max_value_joueur:
+								coord_max_joueur.append([i, j])
+							elif valeur > max_value_joueur:
+								max_value_joueur = valeur
+								coord_max_joueur = [[i, j]]
+						elif P[i][j] == -1:
+							if valeur == max_value_ordi:
+								coord_max_ordi.append([i, j])
+							elif valeur > max_value_ordi:
+								max_value_ordi = valeur
+								coord_max_ordi = [[i, j]]
 						M[i][j][3] = valeur
+				if np.all(M[i][j] == 0):
+					valeur = 1
+					if P[i][j] == 1:
+						if valeur == max_value_joueur:
+							coord_max_joueur.append([i, j])
+						elif valeur > max_value_joueur:
+							max_value_joueur = valeur
+							coord_max_joueur = [[i, j]]
+					elif P[i][j] == -1:
+						if valeur == max_value_ordi:
+							coord_max_ordi.append([i, j])
+						elif valeur > max_value_ordi:
+							max_value_ordi = valeur
+							coord_max_ordi = [[i, j]]
+					M[i][j] = [1, 1, 1, 1]
 			else:
 				M[i][j] = [0, 0, 0, 0]
 
 	############### DETERMINATION DE LA POSITION DU JOUEUR ###############
 
-	max_value += 1
-	if len(coord_max) == 1:
-		score = pas * (max_value) * P[coord_max[0][0]][coord_max[0][1]]
-	else:
-		score = 0
-		for coord in coord_max:
-			score += pas * (max_value) * P[coord[0]][coord[1]] / len(coord_max)
-	directions = [np.argmax(M[coord[0]][coord[1]]) for coord in coord_max]
-	return (score, max_value, coord_max, directions)
+	# max_value_joueur += 1
+	# max_value_ordi +=1
+	score = 0
+	# if len(coord_max) == 1:
+	# 	score = pas * (max_value) * P[coord_max[0][0]][coord_max[0][1]]
+	# else:
+	# 	score = 0
+	# 	for coord in coord_max:
+	# 		score += pas * (max_value) * P[coord[0]][coord[1]] / len(coord_max)
+	# directions = [np.argmax(M[coord[0]][coord[1]]) for coord in coord_max]
+	# return (score, max_value, coord_max, directions)
 
+	for coord_joueur in coord_max_joueur:
+		for coord_ordi in coord_max_ordi:
+			score = score + pas * (max_value_joueur-max_value_ordi)
+
+	directions_joueur = [np.argmax(M[coord[0]][coord[1]]) for coord in coord_max_joueur]
+	directions_ordi = [np.argmax(M[coord[0]][coord[1]]) for coord in coord_max_ordi]
+	infos_joueur = [int(max_value_joueur), coord_max_joueur, directions_joueur]
+	infos_ordi = [int(max_value_ordi), coord_max_ordi, directions_ordi]
+	return ( score, infos_joueur, infos_ordi)
 def InitPosition(N, P):
 	"""
 		P = list()
@@ -165,6 +222,103 @@ def Coord_cases_vides(N,P):
 				coords.append((i,j))
 	return coords
 
+def Placer1(P, N, max_value, coord_max):
+	(P, place) = PlacerDiagDG(P, N, max_value, coord_max)
+	if place == 1:
+		return (P, place)
+	(P, place) = PlacerDiagGD(P, N, max_value, coord_max)
+	if place == 1:
+		return (P, place)
+	(P, place) = PlacerHoriz(P, N, max_value, coord_max)
+	if place == 1:
+		return (P, place)
+	(P, place) = PlacerVert(P, N, max_value, coord_max)
+	return (P, place)
+
+
+
+def PlacerDiagGD(P, N, max_value, coord_max):
+	place = 0
+	x = coord_max[0]
+	y = coord_max[1]
+	print(x,y,max_value)
+	if x + 1  < N:
+		if y + 1 < N:
+			if P[x+1][y+1] == 0:
+				P[x+1][y+1] = -1
+				place = 1
+				return (P, place)
+	if x - max_value >= 0:
+		print(x-max_value)
+		if y - max_value >= 0:
+			print(y-max_value)
+			if P[x-max_value][y-max_value] == 0:
+				P[x-max_value][y-max_value] = -1
+				place = 1
+				return (P,place)
+	return (P, place)
+
+
+
+def PlacerDiagDG(P, N, max_value, coord_max):
+	place = 0
+	x = coord_max[0]
+	y = coord_max[1]
+	if x - 1  >= 0:
+		if y + 1 < N:
+			if P[x-1][y+1] == 0:
+				P[x-1][y+1] = -1
+				place = 1
+				return (P, place)
+	if x + max_value < N:
+		if y - max_value >= 0:
+			if P[x+max_value][y-max_value] == 0:
+				P[x+max_value][y-max_value] = -1
+				place = 1
+				return (P,place)
+	return (P, place)
+
+
+def PlacerVert(P, N, max_value, coord_max):
+	place = 0
+	x = coord_max[0]
+	y = coord_max[1]
+	if x + 1  < N:
+		if P[x+1][y] == 0:
+			P[x+1][y] = -1
+			place = 1
+			return (P, place)
+	if x - max_value >= 0:
+		if P[x-max_value][y] == 0:
+			P[x-max_value][y] = -1
+			place = 1
+			return (P,place)
+	return (P, place)
+
+
+def PlacerHoriz(P, N, max_value, coord_max):
+	place = 0
+	x = coord_max[0]
+	y = coord_max[1]
+	if y + 1  < N:
+		if P[x][y+1] == 0:
+			P[x][y+1] = -1
+			place = 1
+			return (P, place)
+	if y - max_value >= 0:
+		if P[x][y-max_value] == 0:
+			P[x][y-max_value] = -1
+			place = 1
+			return (P,place)
+	return (P, place)
+
+
+def PlacerAleat(P, N):
+	coord_vides = Coord_cases_vides(N,P)
+	coord_alea_vide = coord_vides[r.randint(0,len(coord_vides))]
+	x = coord_alea_vide[0]
+	y = coord_alea_vide[1]
+	P[x][y] = -1
 
 # def main():
 # 	N = 5
