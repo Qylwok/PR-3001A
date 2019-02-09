@@ -135,7 +135,9 @@ def EvalPosition(N, P, A):
 				M[i][j] = [0, 0, 0, 0]
 
 	############### DETERMINATION DE LA POSITION DU JOUEUR ###############
-
+	for i in range(N):
+		for j in range(N):
+			print("ligne %d colonne %d : " % (i, j), M[i][j])
 	# max_value_joueur += 1
 	# max_value_ordi +=1
 	score = 0
@@ -214,6 +216,29 @@ def SaisirCoupJoueur(N, P):
 	P[x][y] = 1
 	return P
 
+def PierreFeuilleCiseaux(P, N):
+	print("Jouez à Pierre Feuille Ciseaux pour déterminer le premier joueur")
+	print("Entrez Pierre, Feuille ou Ciseaux")
+	val_joueur = input().capitalize()
+	print("Vous avez joué : ", val_joueur)
+	PFC = ["Pierre", "Feuille", "Ciseaux"]
+	val_ordi = PFC[r.randint(0,2)]
+	print("L'ordinateur a joué : ", val_ordi)
+	while val_joueur == val_ordi:
+		print("Egalité, recommencez")
+		val_joueur = input().capitalize()
+		print("Vous avez joué : ", val_joueur)
+		val_ordi = PFC[r.randint(0,2)]
+		print("L'ordinateur a joué : ", val_ordi)
+	if (val_joueur == "Pierre" and val_ordi == "Ciseaux") or (val_joueur == "Ciseaux" and val_ordi == "Feuille") or (val_joueur == "Feuille" and val_ordi == "Pierre"): 
+		print("Vous avez gagné, vous commencez")
+		return (P, 1) 
+	else:
+		print("L'ordinateur a gagné, il commence")
+		P = OrdiCommence(P,N)
+		return (P,1)
+
+
 def Coord_cases_vides(N,P):
 	coords = []
 	for i in range(N):
@@ -241,7 +266,6 @@ def PlacerDiagGD(P, N, max_value, coord_max):
 	place = 0
 	x = coord_max[0]
 	y = coord_max[1]
-	print(x,y,max_value)
 	if x + 1  < N:
 		if y + 1 < N:
 			if P[x+1][y+1] == 0:
@@ -249,9 +273,7 @@ def PlacerDiagGD(P, N, max_value, coord_max):
 				place = 1
 				return (P, place)
 	if x - max_value >= 0:
-		print(x-max_value)
 		if y - max_value >= 0:
-			print(y-max_value)
 			if P[x-max_value][y-max_value] == 0:
 				P[x-max_value][y-max_value] = -1
 				place = 1
@@ -264,16 +286,16 @@ def PlacerDiagDG(P, N, max_value, coord_max):
 	place = 0
 	x = coord_max[0]
 	y = coord_max[1]
-	if x - 1  >= 0:
-		if y + 1 < N:
-			if P[x-1][y+1] == 0:
-				P[x-1][y+1] = -1
+	if x + 1  < N:
+		if y - 1 >= 0:
+			if P[x+1][y-1] == 0:
+				P[x+1][y-1] = -1
 				place = 1
 				return (P, place)
-	if x + max_value < N:
-		if y - max_value >= 0:
-			if P[x+max_value][y-max_value] == 0:
-				P[x+max_value][y-max_value] = -1
+	if x - max_value >= 0:
+		if y + max_value < N:
+			if P[x-max_value][y+max_value] == 0:
+				P[x-max_value][y+max_value] = -1
 				place = 1
 				return (P,place)
 	return (P, place)
@@ -315,12 +337,21 @@ def PlacerHoriz(P, N, max_value, coord_max):
 
 def PlacerAleat(P, N):
 	coord_vides = Coord_cases_vides(N,P)
-	coord_alea_vide = coord_vides[r.randint(0,len(coord_vides))]
+	coord_alea_vide = coord_vides[r.randint(0,len(coord_vides)-1)]
 	x = coord_alea_vide[0]
 	y = coord_alea_vide[1]
 	P[x][y] = -1
 
+def OrdiCommence(P, N):
+	x = r.randint(0, N-1)
+	print("x =", x)
+	y = r.randint(0, N-1)
+	print("y = ", y)
+	P[x][y] = -1
+	return P
+
 # def main():
+
 # 	N = 5
 # 	P = [[-1, 0, 1, 0, -1], [1, 0, -1, 1, 0], [-1, 1, -1, 1, 0], [0, 1, -1, 1, -1], [-1, 0, 1, -1 ,1]]
 # 	A = 4
