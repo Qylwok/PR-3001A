@@ -4,7 +4,7 @@ import random as r
 
 def main():
 	N = 4
-	A = 4
+	A = 3
 	P = []
 	# Qui commence ? ==> Pierre Feuille Ciseaux avec l'ordinateur ! :D à implémenter
 	InitPosition(N, P)
@@ -35,6 +35,7 @@ def main():
 			max_value_ordi = infos_ordi[0]
 			coord_max_ordi = infos_ordi[1]
 			directions_ordi = infos_ordi[2]
+			#print(max_value_joueur)
 			if max_value_joueur == A: 
 				print("Vous avez gagne")
 				break
@@ -53,7 +54,7 @@ def main():
 			if max_value == 1:
 				
 				for coord in coord_max:
-					(P, place) = Placer1(P, N, max_value, coord)
+					(P, place) = Placer1(P, N, A, max_value, coord)
 					if place == 1:
 						break
 				if place == 0:
@@ -62,12 +63,17 @@ def main():
 				for i in range(len(coord_max)):
 					coord = coord_max[i]
 					direction = directions[i]
+					print(coord)
+					print(direction)
+					place = 0
 					if direction == 0:
-						(P, place) = PlacerDiagGD(P, N, max_value, coord)
+						if coord in CoordDiagGD(P, N, A):
+							(P, place) = PlacerDiagGD(P, N, max_value, coord)
 					elif direction == 1:
 						(P, place) = PlacerVert(P, N, max_value, coord)
 					elif direction == 2:
-						(P, place) = PlacerDiagDG(P, N, max_value, coord)
+						if coord in CoordDiagDG(P, N, A):
+							(P, place) = PlacerDiagDG(P, N, max_value, coord)
 					else:
 						(P, place) = PlacerHoriz(P, N, max_value, coord)
 					if place == 1:

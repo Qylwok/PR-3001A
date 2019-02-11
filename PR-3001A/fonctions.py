@@ -135,9 +135,9 @@ def EvalPosition(N, P, A):
 				M[i][j] = [0, 0, 0, 0]
 
 	############### DETERMINATION DE LA POSITION DU JOUEUR ###############
-	for i in range(N):
-		for j in range(N):
-			print("ligne %d colonne %d : " % (i, j), M[i][j])
+	# for i in range(N):
+	# 	for j in range(N):
+	# 		print("ligne %d colonne %d : " % (i, j), M[i][j])
 	# max_value_joueur += 1
 	# max_value_ordi +=1
 	score = 0
@@ -247,13 +247,15 @@ def Coord_cases_vides(N,P):
 				coords.append((i,j))
 	return coords
 
-def Placer1(P, N, max_value, coord_max):
-	(P, place) = PlacerDiagDG(P, N, max_value, coord_max)
-	if place == 1:
-		return (P, place)
-	(P, place) = PlacerDiagGD(P, N, max_value, coord_max)
-	if place == 1:
-		return (P, place)
+def Placer1(P, N, A, max_value, coord_max):
+	if coord_max in CoordDiagGD(P, N, A):
+		(P, place) = PlacerDiagGD(P, N, max_value, coord_max)
+		if place == 1:
+			return (P, place)
+	if coord_max in CoordDiagDG(P, N, A):
+		(P, place) = PlacerDiagDG(P, N, max_value, coord_max)
+		if place == 1:
+			return (P, place)
 	(P, place) = PlacerHoriz(P, N, max_value, coord_max)
 	if place == 1:
 		return (P, place)
@@ -349,6 +351,27 @@ def OrdiCommence(P, N):
 	print("y = ", y)
 	P[x][y] = -1
 	return P
+
+def CoordDiagGD(P, N, A):
+	coord = []
+	k = N - A
+	for i in range(N):
+		for j in range(N):
+			if abs(i-j) <= k:
+				coord.append([i, j])
+	return coord
+
+def CoordDiagDG(P, N, A):
+	coordDG = CoordDiagGD(P, N, A)
+	coord = []
+	k = int(N/2)
+	for elt in coordDG:
+		x = elt[0]
+		y = elt[1]
+		yp = (N-1-y)%N
+		coord.append([x, yp])
+	return coord
+	
 
 # def main():
 
