@@ -45,105 +45,102 @@ def EvalPosition(N, P, A):
 	max_value_ordi = [0]
 	coord_max_joueur = [[0, 0]]
 	coord_max_ordi = [[0, 0]]
-	coord_diag_GD = CoordDiagGD(P,N,A) 
-	coord_diag_DG = CoordDiagDG(P,N,A)
 	for i in range(N):
 		for j in range(N):
 			if P[i][j] != 0:
-				M[i][j] = [1, 1, 1, 1]
 				if i-1 >= 0:
 					if j-1 >=0:
 						#test
 						if P[i][j] == P[i-1][j-1]:
 							valeur = M[i-1][j-1][0] + 1
-							# if P[i][j] == 1:	
-							# 	if valeur == max_value_joueur[0]:
-							# 		coord_max_joueur.append([i, j])
-							# 		max_value_joueur.append(valeur)
-							# 	elif valeur > max_value_joueur[0]:
-							# 		max_value_joueur = [valeur]
-							# 		coord_max_joueur = [[i, j]]
-							# elif P[i][j] == -1:
-							# 	if valeur == max_value_ordi[0]:
-							# 		max_value_ordi.append(valeur)
-							# 		coord_max_ordi.append([i, j])
-							# 	elif valeur > max_value_ordi[0]:
-							# 		max_value_ordi = [valeur]
-							# 		coord_max_ordi = [[i, j]]
+							if P[i][j] == 1:	
+								if valeur == max_value_joueur[0]:
+									coord_max_joueur.append([i, j])
+									max_value_joueur.append(valeur)
+								elif valeur > max_value_joueur[0]:
+									max_value_joueur = [valeur]
+									coord_max_joueur = [[i, j]]
+							elif P[i][j] == -1:
+								if valeur == max_value_ordi[0]:
+									max_value_ordi.append(valeur)
+									coord_max_ordi.append([i, j])
+								elif valeur > max_value_ordi[0]:
+									max_value_ordi = [valeur]
+									coord_max_ordi = [[i, j]]
 							M[i][j][0] = valeur
 					#test
 					if P[i][j] == P[i-1][j]:
 						valeur = M[i-1][j][1] + 1
-						# if P[i][j] == 1:	
-						# 	if valeur == max_value_joueur[0]:
-						# 		coord_max_joueur.append([i, j])
-						# 		max_value_joueur.append(valeur)
-						# 	elif valeur > max_value_joueur[0]:
-						# 		max_value_joueur = [valeur]
-						# 		coord_max_joueur = [[i, j]]
-						# elif P[i][j] == -1:
-						# 	if valeur == max_value_ordi[0]:
-						# 		max_value_ordi.append(valeur)
-						# 		coord_max_ordi.append([i, j])
-						# 	elif valeur > max_value_ordi[0]:
-						# 		max_value_ordi = [valeur]
-						# 		coord_max_ordi = [[i, j]]
+						if P[i][j] == 1:	
+							if valeur == max_value_joueur[0]:
+								coord_max_joueur.append([i, j])
+								max_value_joueur.append(valeur)
+							elif valeur > max_value_joueur[0]:
+								max_value_joueur = [valeur]
+								coord_max_joueur = [[i, j]]
+						elif P[i][j] == -1:
+							if valeur == max_value_ordi[0]:
+								max_value_ordi.append(valeur)
+								coord_max_ordi.append([i, j])
+							elif valeur > max_value_ordi[0]:
+								max_value_ordi = [valeur]
+								coord_max_ordi = [[i, j]]
 						M[i][j][1] = valeur
 					if j+1 <= N-1:
 						#test
 						if P[i][j] == P[i-1][j+1]:
 							valeur = M[i-1][j+1][2] + 1
-							# if P[i][j] == 1:	
-							# 	if valeur == max_value_joueur[0]:
-							# 		coord_max_joueur.append([i, j])
-							# 		max_value_joueur.append(valeur)
-							# 	elif valeur > max_value_joueur[0]:
-							# 		max_value_joueur = [valeur]
-							# 		coord_max_joueur = [[i, j]]
-							# elif P[i][j] == -1:
-							# 	if valeur == max_value_ordi[0]:
-							# 		max_value_ordi.append(valeur)
-							# 		coord_max_ordi.append([i, j])
-							# 	elif valeur > max_value_ordi[0]:
-							# 		max_value_ordi = [valeur]
-							# 		coord_max_ordi = [[i, j]]
+							if P[i][j] == 1:	
+								if valeur == max_value_joueur[0]:
+									coord_max_joueur.append([i, j])
+									max_value_joueur.append(valeur)
+								elif valeur > max_value_joueur[0]:
+									max_value_joueur = [valeur]
+									coord_max_joueur = [[i, j]]
+							elif P[i][j] == -1:
+								if valeur == max_value_ordi[0]:
+									max_value_ordi.append(valeur)
+									coord_max_ordi.append([i, j])
+								elif valeur > max_value_ordi[0]:
+									max_value_ordi = [valeur]
+									coord_max_ordi = [[i, j]]
 							M[i][j][2] = valeur
 				if j-1 >= 0:
 					#test
 					if P[i][j] == P[i][j-1]:
 						valeur = M[i][j-1][3] + 1
-						# if P[i][j] == 1:	
-						# 	if valeur == max_value_joueur[0]:
-						# 		coord_max_joueur.append([i, j])
-						# 		max_value_joueur.append(valeur)
-						# 	elif valeur > max_value_joueur[0]:
-						# 		max_value_joueur = [valeur]
-						# 		coord_max_joueur = [[i, j]]
-						# elif P[i][j] == -1:
-						# 	if valeur == max_value_ordi[0]:
-						# 		max_value_ordi.append(valeur)
-						# 		coord_max_ordi.append([i, j])
-						# 	elif valeur > max_value_ordi[0]:
-						# 		max_value_ordi = [valeur]
-						# 		coord_max_ordi = [[i, j]]
+						if P[i][j] == 1:	
+							if valeur == max_value_joueur[0]:
+								coord_max_joueur.append([i, j])
+								max_value_joueur.append(valeur)
+							elif valeur > max_value_joueur[0]:
+								max_value_joueur = [valeur]
+								coord_max_joueur = [[i, j]]
+							elif P[i][j] == -1:
+								if valeur == max_value_ordi[0]:
+									max_value_ordi.append(valeur)
+									coord_max_ordi.append([i, j])
+								elif valeur > max_value_ordi[0]:
+									max_value_ordi = [valeur]
+									coord_max_ordi = [[i, j]]
 						M[i][j][3] = valeur
-				# if np.all(M[i][j] == 1):
-				# 	valeur = 1
-				# 	if P[i][j] == 1:
-				# 		if valeur == max_value_joueur[0]:
-				# 			coord_max_joueur.append([i, j])
-				# 			max_value_joueur.append(valeur)
-				# 		elif valeur > max_value_joueur[0]:
-				# 			max_value_joueur = [valeur]
-				# 			coord_max_joueur = [[i, j]]
-				# 	elif P[i][j] == -1:
-				# 		if valeur == max_value_ordi[0]:
-				# 			max_value_ordi.append(valeur)
-				# 			coord_max_ordi.append([i, j])
-				# 		elif valeur > max_value_ordi[0]:
-				# 			max_value_ordi = [valeur]
-				# 			coord_max_ordi = [[i, j]]
-					
+				if np.all(M[i][j] == 0):
+					valeur = 1
+					if P[i][j] == 1:
+						if valeur == max_value_joueur[0]:
+							coord_max_joueur.append([i, j])
+							max_value_joueur.append(valeur)
+						elif valeur > max_value_joueur[0]:
+							max_value_joueur = [valeur]
+							coord_max_joueur = [[i, j]]
+					elif P[i][j] == -1:
+						if valeur == max_value_ordi[0]:
+							max_value_ordi.append(valeur)
+							coord_max_ordi.append([i, j])
+						elif valeur > max_value_ordi[0]:
+							max_value_ordi = [valeur]
+							coord_max_ordi = [[i, j]]
+					M[i][j] = [1, 1, 1, 1]
 			else:
 				M[i][j] = [0, 0, 0, 0]
 
@@ -162,38 +159,6 @@ def EvalPosition(N, P, A):
 	# 		score += pas * (max_value) * P[coord[0]][coord[1]] / len(coord_max)
 	# directions = [np.argmax(M[coord[0]][coord[1]]) for coord in coord_max]
 	# return (score, max_value, coord_max, directions)
-	
-	for i in range(N):
-		for j in range(N):
-			if [i, j] not in coord_diag_GD:
-				# print("GD, i j = ", i, j)
-				M[i][j][0] = 0
-			if [i, j] not in coord_diag_DG:
-				# print("DG, i j = ", i, j)
-				M[i][j][2] = 0
-
-
-	M = blocage(N, P, M)
-	for i in range(N):
-		for j in range(N):
-			directions = M[i, j] 
-			for k in range(4): 
-				valeur = directions[k]
-				if P[i][j] == 1:	
-					if valeur == max_value_joueur[0]:
-						coord_max_joueur.append([i, j])
-						max_value_joueur.append(valeur)
-					elif valeur > max_value_joueur[0]:
-						max_value_joueur = [valeur]
-						coord_max_joueur = [[i, j]]
-				elif P[i][j] == -1:
-					if valeur == max_value_ordi[0]:
-						max_value_ordi.append(valeur)
-						coord_max_ordi.append([i, j])
-					elif valeur > max_value_ordi[0]:
-						max_value_ordi = [valeur]
-						coord_max_ordi = [[i, j]]
-
 
 	for coord_joueur in coord_max_joueur:
 		for coord_ordi in coord_max_ordi:
@@ -203,7 +168,7 @@ def EvalPosition(N, P, A):
 	directions_ordi = [np.argmax(M[coord[0]][coord[1]]) for coord in coord_max_ordi]
 	infos_joueur = [max_value_joueur, coord_max_joueur, directions_joueur]
 	infos_ordi = [max_value_ordi, coord_max_ordi, directions_ordi]
-	return ( M, score, infos_joueur, infos_ordi)
+	return ( score, infos_joueur, infos_ordi)
 def InitPosition(N, P):
 	"""
 		P = list()
@@ -309,157 +274,78 @@ def Placer1(P, N, A, max_value, coord_max):
 
 
 
-def DiagGD(P, N, max_value, coord_max):
+def PlacerDiagGD(P, N, max_value, coord_max):
 	place = 0
-	bloque = 1
 	x = coord_max[0]
 	y = coord_max[1]
 	if x + 1  < N:
 		if y + 1 < N:
-			if P[x+1][y+1] == 0:	
+			if P[x+1][y+1] == 0:
+				P[x+1][y+1] = -1
 				place = 1
-				bloque = 1
-			elif P[x+1][y+1] == P[x][y]:
-				bloque = 1
-			else:
-				bloque = 0	
+				return (P, place)
 	if x - max_value >= 0:
 		if y - max_value >= 0:
 			if P[x-max_value][y-max_value] == 0:
-				place = 2
-				bloque = 2
-			elif P[x-max_value][y-max_value] == P[x][y]:
-				bloque = 2	
-			else:
-				bloque = 0
-	return (place, bloque)
-
-def PlacerDiagGD(P, N, max_value, coord_max):
-	(place, bloque) = DiagGD(P, N, max_value, coord_max)
-
-	x = coord_max[0]
-	y = coord_max[1]
-	if place == 1:
-		P[x+1][y+1] = -1
-		return (P, 1)
-	elif place == 2:
-		P[x-max_value][y-max_value] = -1
-		return (P, 1)
-	else:
-		return (P, 0)
+				P[x-max_value][y-max_value] = -1
+				place = 1
+				return (P,place)
+	return (P, place)
 
 
-def DiagDG(P, N, max_value, coord_max):
+
+def PlacerDiagDG(P, N, max_value, coord_max):
 	place = 0
-	bloque = 1
 	x = coord_max[0]
 	y = coord_max[1]
 	if x + 1  < N:
 		if y - 1 >= 0:
 			if P[x+1][y-1] == 0:
+				P[x+1][y-1] = -1
 				place = 1
-				bloque = 1
-			elif P[x+1][y-1] == P[x][y]:
-				bloque = 1
-			else:
-				bloque = 0
+				return (P, place)
 	if x - max_value >= 0:
 		if y + max_value < N:
 			if P[x-max_value][y+max_value] == 0:
-				place = 2 
-				bloque = 2
-			elif P[x-max_value][y+max_value] ==P[x][y]:	
-				bloque = 2
-			else:
-				bloque = 0
-	return (place, bloque)
+				P[x-max_value][y+max_value] = -1
+				place = 1
+				return (P,place)
+	return (P, place)
 
-def PlacerDiagDG(P, N, max_value, coord_max):
-	(place, bloque) = DiagDG(P, N, max_value, coord_max)
-	x = coord_max[0]
-	y = coord_max[1]
-	if place == 1:
-		P[x+1][y-1] = -1
-		return (P, 1)
-	elif place == 2:
-		P[x-max_value][y+max_value] = -1
-		return (P, 1)
-	else:
-		return (P, 0)
 
-def Vert(P, N, max_value, coord_max):
+def PlacerVert(P, N, max_value, coord_max):
 	place = 0
-	bloque = 1
 	x = coord_max[0]
 	y = coord_max[1]
 	if x + 1  < N:
 		if P[x+1][y] == 0:
+			P[x+1][y] = -1
 			place = 1
-			bloque = 1
-		elif P[x+1][y] == P[x][y]:
-			bloque = 1
-		else:
-			bloque = 0	
+			return (P, place)
 	if x - max_value >= 0:
 		if P[x-max_value][y] == 0:
-			place = 2
-			bloque = 2
-		elif P[x-max_value][y] == P[x][y]:
-			bloque = 2
-		else:
-			bloque = 0		
-	return (place, bloque)
-
-def PlacerVert(P, N, max_value, coord_max):
-	(place, bloque) = Vert(P, N, max_value, coord_max)
-	x = coord_max[0]
-	y = coord_max[1]
-	if place == 1:
-		P[x+1][y] = -1
-		return (P, 1)
-	elif place == 2:
-		P[x-max_value][y] = -1
-		return (P, 1)
-	else:
-		return (P, 0)
+			P[x-max_value][y] = -1
+			place = 1
+			return (P,place)
+	return (P, place)
 
 
-def Horiz(P, N, max_value, coord_max):
-	place = 0 
-	bloque = 1
+def PlacerHoriz(P, N, max_value, coord_max):
+	place = 0
 	x = coord_max[0]
 	y = coord_max[1]
 	if y + 1  < N:
 		if P[x][y+1] == 0:
-			place = 1 
-			bloque = 1
-		elif P[x][y+1] == P[x][y]:
-			bloque = 1
-		else:
-			bloque = 0
+			P[x][y+1] = -1
+			place = 1
+			return (P, place)
 	if y - max_value >= 0:
 		if P[x][y-max_value] == 0:
-			place = 2
-			bloque = 2
-		elif P[x][y-max_value] == P[x][y]:
-			bloque = 2
-		else:
-			bloque = 0
-	return (place, bloque)
+			P[x][y-max_value] = -1
+			place = 1
+			return (P,place)
+	return (P, place)
 
-def PlacerHoriz(P, N, max_value, coord_max):
-	(place, bloque) = Horiz(P, N, max_value, coord_max)
-	x = coord_max[0]
-	y = coord_max[1]
-	if place == 1:
-		P[x][y+1] = -1
-		return (P, 1)
-	elif place == 2:
-		P[x][y-max_value] = -1
-		return (P, 1)
-	else:
-		return (P, 0)
-	
 
 def PlacerAleat(P, N):
 	coord_vides = Coord_cases_vides(N,P)
@@ -496,54 +382,6 @@ def CoordDiagDG(P, N, A):
 		coord.append([x, yp])
 	return coord
 	
-def blocage(N, P, M):
-	for i in range(N-1, -1, -1):
-		for j in range(N-1, -1, -1):
-			if P[i][j] != 0:
-				directions = M[i][j]
-				# print("directions = ", directions)
-				for k in range(len(directions)):
-					
-					
-					val = int(directions[k])
-					
-					# if j == 0:
-					# print("i, j = ", i, j)
-					# 	print("k = ", k)
-					# 	print("val = ", val)
-					if k == 0:						
-						(place, bloque) = DiagGD(P, N, val, [i, j])
-						# print("bloque = ", bloque)
-						if bloque == 0:
-							for l in range(val):
-								M[i-l][j-l][0] = 0 
-					elif k == 1:
-						(place, bloque) = Vert(P, N, val, [i, j])
-						# print("bloque = ", bloque)
-						if bloque == 0:
-							for l in range(val):
-								M[i-l][j][1] = 0
-					elif k == 2:
-						(place, bloque) = DiagDG(P, N, val, [i, j])
-						# print("bloque = ", bloque)
-						if bloque == 0:
-							for l in range(val):
-								M[i-l][j+l][2] = 0
-					else:
-						(place, bloque) = Horiz(P, N, val, [i, j])
-						# print("bloque = ", bloque)
-						if bloque == 0:
-							for l in range(val):
-								M[i][j-l][3] = 0
-	return M
-
-
-		
-
-
-			
-
-
 
 # def main():
 
