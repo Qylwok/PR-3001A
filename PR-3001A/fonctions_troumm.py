@@ -298,13 +298,13 @@ def SaisirCoupJoueur(N, P):
 		Demande des coordonnées au joueur et met un pion aux coordonnées entrées
 	"""
 	print("Entrez les coordonnees de ou vous voulez mettre votre pion")
-	x = EntrezUnNombre("\tX => ")-1
-	y = EntrezUnNombre("\tY => ")-1
+	x = EntrerUnNombre("\tX => ")-1
+	y = EntrerUnNombre("\tY => ")-1
 	# !!! CAS OU (INPUT != INT) A PRENDRE EN COMPTE
 	while x>N or y>N or x<0 or y<0 or P[x][y] != 0 : 	# or (type(x) != type(int())) or (type(y) != type(int())):
 		print("Coordonnees incorrectes, reessayez :")
-		x = EntrezUnNombre("\tX => ")-1
-		y = EntrezUnNombre("\tY => ")-1
+		x = EntrerUnNombre("\tX => ")-1
+		y = EntrerUnNombre("\tY => ")-1
 	P[x][y] = 1
 	return P
 
@@ -329,7 +329,7 @@ def PierreFeuilleCiseaux(P, N):
 		val_ordi = PFC[r.randint(1,2)]
 	if val_joueur == "Feuille":
 		val_ordi = PFC[r.randint(0,1)*2]
-	if val_joueur == "Ciseaux":
+	else:
 		val_ordi = PFC[r.randint(0,1)]	
 	
 	print("L'ordinateur a joué : ", val_ordi)
