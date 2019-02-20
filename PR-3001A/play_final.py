@@ -5,8 +5,8 @@ degre_minmax = 3
 
 def main():
 	global degre_minmax
-	N = 4
-	A = 3
+	N = 7
+	A = 4
 	P = []
 	# Qui commence ? ==> Pierre Feuille Ciseaux avec l'ordinateur ! :D à implémenter
 	InitPosition(N, P)
@@ -19,6 +19,10 @@ def main():
 		if idjoueur == 1:
 			P = SaisirCoupJoueur(N,P)
 			AffichePosition(N,P)
+			(M, Mt, score, infos_joueur, infos_ordi) = EvalPosition(N, P, A)
+			if infos_joueur[0][0] == A:
+				print("Vous avez gagne")
+				break
 			end = PlusDeCasesLibres(N,P)
 			print()
 			print("################################")
